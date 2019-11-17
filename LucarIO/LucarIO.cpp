@@ -63,13 +63,6 @@ int main(char argc, char* argv[])
 			if (redraw) {
 				al_clear_to_color(al_map_rgb(0, 0, 0));
 
-				al_hold_bitmap_drawing(true);
-				for (auto i = 0; i < 5000; ++i) {
-					al_draw_scaled_rotated_bitmap(lucario, rand() % 800, rand() % 600,
-						0, 0, 0.125, 0.125, rand() % 360, NULL);
-				}
-				al_hold_bitmap_drawing(false);
-
 				al_draw_scaled_bitmap(lucario, 0, 0, al_get_bitmap_width(lucario), al_get_bitmap_height(lucario),
 					mouseX - 125, mouseY - 125, 250, 250, NULL);
 
@@ -82,6 +75,7 @@ int main(char argc, char* argv[])
 
 			switch (ev.type) {
 			case ALLEGRO_EVENT_TIMER:
+				// Drop next timer if previous render took too long.
 				ALLEGRO_EVENT ev2;
 				if (al_peek_next_event(queue, &ev2)) {
 					if (ev.type == ALLEGRO_EVENT_TIMER) {
@@ -90,8 +84,6 @@ int main(char argc, char* argv[])
 					}
 				}
 				redraw = true;
-
-				// Update logic.
 				break;
 
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
