@@ -198,9 +198,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LucarIO.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LucarIO.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="rect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -14,7 +14,7 @@
 #include "allegro5/allegro_image.h"
 #include "allegro5/allegro_primitives.h"
 
-#include "Vec2D.h"
+#include "Player.h"
 
 ALLEGRO_DISPLAY* display{ nullptr };
 ALLEGRO_EVENT_QUEUE* queue{ nullptr };
