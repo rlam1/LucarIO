@@ -60,7 +60,7 @@ int main(char argc, char* argv[])
 
 	while (!quit) {
 		do {
-			if (redraw) {
+			if (redraw && al_is_event_queue_empty(queue)) {
 				al_clear_to_color(al_map_rgb(0, 0, 0));
 
 				al_draw_scaled_bitmap(lucario, 0, 0, al_get_bitmap_width(lucario), al_get_bitmap_height(lucario),
@@ -75,15 +75,10 @@ int main(char argc, char* argv[])
 
 			switch (ev.type) {
 			case ALLEGRO_EVENT_TIMER:
-				// Drop next timer if previous render took too long.
-				ALLEGRO_EVENT ev2;
-				if (al_peek_next_event(queue, &ev2)) {
-					if (ev.type == ALLEGRO_EVENT_TIMER) {
-						al_drop_next_event(queue);
-						break;
-					}
-				}
 				redraw = true;
+
+				// TODO: Update game logic here
+
 				break;
 
 			case ALLEGRO_EVENT_DISPLAY_CLOSE:
