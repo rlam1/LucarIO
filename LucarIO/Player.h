@@ -11,23 +11,25 @@
 
 #include "Rect.h"
 
-class Player
-{
-public:
-	Player(std::string pathToResource);
-	~Player();
+namespace RL::Game {
+	class Player
+	{
+	public:
+		Player(std::string pathToResource);
+		~Player();
 
-	void Update(Point<int> mousePosition);
-	void Draw() const;
+		void Update(RL::Game::Math::Point<int> mousePosition);
+		void Draw() const;
 
-private:
-	Point<double> position;
-	Rect<double> collisionBox;
-	double size;
-	double speed;
+	private:
+		RL::Game::Math::Point<double> position;
+		RL::Game::Math::Rect<double> collisionBox;
+		double size;
+		double speed;
 
-	ALLEGRO_BITMAP* img{ nullptr };
+		ALLEGRO_BITMAP* img{ nullptr };
 
-	void moveCollisionBox();
-};
+		void moveCollisionBox();
+	};
+}
 

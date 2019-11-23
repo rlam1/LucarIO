@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(std::string pathToResource)
+RL::Game::Player::Player(std::string pathToResource)
 {
 	assert(al_is_system_installed());
 
@@ -21,20 +21,20 @@ Player::Player(std::string pathToResource)
 	speed = 0.0;
 }
 
-Player::~Player()
+RL::Game::Player::~Player()
 {
 	al_destroy_bitmap(img);
 }
 
-void Player::Update(Point<int> mousePosition)
+void RL::Game::Player::Update(RL::Game::Math::Point<int> mousePosition)
 {
 
 }
 
-void Player::Draw() const
+void RL::Game::Player::Draw() const
 {
 }
 
-void Player::moveCollisionBox()
+void RL::Game::Player::moveCollisionBox()
 {
 }
