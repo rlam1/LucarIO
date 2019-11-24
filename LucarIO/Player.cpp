@@ -39,6 +39,11 @@ void RL::Game::Player::Draw() const
 {
 }
 
+RL::Game::Math::Rect<double> RL::Game::Player::getCollisionBox() const
+{
+	return RL::Game::Math::Rect<double>();
+}
+
 void RL::Game::Player::moveCollisionBox()
 {
 }

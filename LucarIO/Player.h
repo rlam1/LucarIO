@@ -21,6 +21,8 @@ namespace RL::Game {
 		void Update(RL::Game::Math::Point<int> mousePosition);
 		void Draw() const;
 
+		RL::Game::Math::Rect<double> getCollisionBox() const;
+
 	private:
 		RL::Game::Math::Point<double> position;
 		RL::Game::Math::Rect<double> collisionBox;
