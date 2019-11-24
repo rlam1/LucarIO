@@ -10,7 +10,8 @@
 
 #include <allegro5/allegro.h>
 
-#include "Rect.h"
+#include <mathfu/rect.h>
+#include <mathfu/vector.h>
 
 namespace RL::Game {
 	class Screen
@@ -22,9 +23,9 @@ namespace RL::Game {
 
 		~Screen();
 
-		ALLEGRO_DISPLAY*	 display{ nullptr };
+		ALLEGRO_DISPLAY* display{ nullptr };
 		ALLEGRO_EVENT_QUEUE* queue{ nullptr };
-		ALLEGRO_TIMER*		 timer{ nullptr };
+		ALLEGRO_TIMER* timer{ nullptr };
 
 		bool hasValidState() const;
 		void updateKeyboard(bool val, unsigned int keycode);
@@ -32,15 +33,15 @@ namespace RL::Game {
 		void updateMouseButtonUp(unsigned int val);
 		void updateMouseButtonDown(unsigned int val);
 
-		RL::Game::Math::Point<int> getMousePosition() const;
+		mathfu::Vector<int, 2> getMousePosition() const;
 		unsigned int getMouseButtonState() const;
 
 	private:
 		const double TARGET_FRAME_SLICE{ 1.0 / 60.0 };
-		bool	stateOK{ true };
+		bool stateOK{ true };
 
 		std::array<bool, ALLEGRO_KEY_MAX> keyboardKeys;
-		RL::Game::Math::Point<int> mouseCoordinates{ 0,0 };
+		mathfu::Vector<int, 2> mouseCoordinates{ 0,0 };
 		unsigned int mouseButtonState{ 0 };
 
 		void InitializeScreen(int w = 1024, int h = 728, std::string name = "Game");

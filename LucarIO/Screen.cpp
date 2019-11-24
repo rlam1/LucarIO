@@ -52,7 +52,7 @@ void RL::Game::Screen::updateMouseButtonDown(unsigned int val)
 	mouseButtonState |= (1 << val);
 }
 
-RL::Game::Math::Point<int> RL::Game::Screen::getMousePosition() const
+mathfu::Vector<int, 2> RL::Game::Screen::getMousePosition() const
 {
 	return mouseCoordinates;
 }
