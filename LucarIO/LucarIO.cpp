@@ -35,8 +35,7 @@ int main(char argc, char* argv[])
 
 	RL::Game::Screen screen(1024, 768, "Lucar.io | A Game of Nonsense");
 
-	lucario = al_load_bitmap("res/lucario.jpg");
-	std::cout << lucario << std::endl;
+	RL::Game::Player player("res/lucario.jpg");
 
 	al_start_timer(screen.timer);
 
@@ -45,8 +44,7 @@ int main(char argc, char* argv[])
 			if (redraw && al_is_event_queue_empty(screen.queue)) {
 				al_clear_to_color(al_map_rgb(0, 0, 0));
 
-				al_draw_scaled_bitmap(lucario, 0, 0, al_get_bitmap_width(lucario), al_get_bitmap_height(lucario),
-					screen.getMousePosition().x - 125, screen.getMousePosition().y - 125, 250, 250, NULL);
+				player.Draw();
 
 				al_flip_display();
 				redraw = false;
@@ -59,7 +57,7 @@ int main(char argc, char* argv[])
 			case ALLEGRO_EVENT_TIMER:
 				redraw = true;
 
-				// TODO: Update game logic here
+				player.Update(screen.getMousePosition());
 
 				break;
 
@@ -105,6 +103,4 @@ int main(char argc, char* argv[])
 void Shutdown_System()
 {
 	std::cout << "Allegro is closing now..." << std::endl;
-
-	al_destroy_bitmap(lucario);
 }

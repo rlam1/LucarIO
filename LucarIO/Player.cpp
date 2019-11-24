@@ -13,16 +13,17 @@ RL::Game::Player::Player(std::string pathToResource)
 		throw std::invalid_argument::invalid_argument("The player image could not be found!\n");
 	}
 
-	position.x = 0.0;
-	position.y = 0.0;
+	imgSize.x = al_get_bitmap_width(img);
+	imgSize.y = al_get_bitmap_height(img);
 
-	collisionBox.xy.x = 0.0;
-	collisionBox.xy.y = 0.0;
-	collisionBox.wh.x = 0.0;
-	collisionBox.wh.y = 0.0;
+	position.x = 512.0;
+	position.y = 384.0;
 
-	size = 0.0;
-	speed = 0.0;
+	collisionBox.pos = mathfu::kZeros2d;
+	collisionBox.size = mathfu::kZeros2d;
+
+	size = 0.25;
+	speed = 1.0;
 }
 
 RL::Game::Player::~Player()
@@ -30,20 +31,47 @@ RL::Game::Player::~Player()
 	al_destroy_bitmap(img);
 }
 
-void RL::Game::Player::Update(RL::Game::Math::Point<int> mousePosition)
+void RL::Game::Player::Update(mathfu::Vector<int, 2> mousePosition)
 {
+	/* Posible implementation:
+			Do the Lerp
+			Normalize the vector  (make it lenght 1)
+			Multiply this vector by the current speed factor
+			Profit
+	*/
 
+	mathfu::Vector<double, 2> mouseD{ 
+		static_cast<double>(mousePosition.x), 
+		static_cast<double>(mousePosition.y) 
+	};
+
+	mathfu::Vector<double, 2> a = mathfu::Vector<double, 2>::Lerp
+		(mouseD, position, 0.5);
+	a.Normalize();
+	a *= speed;
+
+	position += a;
+
+	moveCollisionBox();
 }
 
 void RL::Game::Player::Draw() const
 {
+	al_draw_scaled_bitmap(img, 0, 0, imgSize.x, imgSize.y,
+		collisionBox.pos.x, collisionBox.pos.y,
+		collisionBox.size.x, collisionBox.size.y, NULL);
 }
 
-RL::Game::Math::Rect<double> RL::Game::Player::getCollisionBox() const
+mathfu::Rect<double> RL::Game::Player::getCollisionBox() const
 {
-	return RL::Game::Math::Rect<double>();
+	return collisionBox;
 }
 
 void RL::Game::Player::moveCollisionBox()
 {
+	collisionBox.pos.x = (position.x - (imgSize.x / 2.0)) * size;
+	collisionBox.pos.y = (position.y - (imgSize.y / 2.0)) * size;
+
+	collisionBox.size.x = (position.x + (imgSize.x / 2.0)) * size;
+	collisionBox.size.y = (position.y + (imgSize.y / 2.0)) * size;
 }

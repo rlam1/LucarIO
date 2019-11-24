@@ -17,8 +17,6 @@
 #include "Player.h"
 #include "Screen.h"
 
-ALLEGRO_BITMAP* lucario{ nullptr };
-
 bool redraw{ true };
 bool quit{ false };
 

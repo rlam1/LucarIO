@@ -9,7 +9,9 @@
 
 #include <allegro5/allegro.h>
 
-#include "Rect.h"
+#include <mathfu/constants.h>
+#include <mathfu/rect.h>
+#include <mathfu/vector.h>
 
 namespace RL::Game {
 	class Player
@@ -18,18 +20,19 @@ namespace RL::Game {
 		Player(std::string pathToResource);
 		~Player();
 
-		void Update(RL::Game::Math::Point<int> mousePosition);
+		void Update(mathfu::Vector<int, 2> mousePosition);
 		void Draw() const;
 
-		RL::Game::Math::Rect<double> getCollisionBox() const;
+		mathfu::Rect<double> getCollisionBox() const;
 
 	private:
-		RL::Game::Math::Point<double> position;
-		RL::Game::Math::Rect<double> collisionBox;
+		mathfu::Vector<double, 2> position;
+		mathfu::Rect<double> collisionBox;
 		double size;
 		double speed;
 
 		ALLEGRO_BITMAP* img{ nullptr };
+		mathfu::Vector<int, 2> imgSize;
 
 		void moveCollisionBox();
 	};
