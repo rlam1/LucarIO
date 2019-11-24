@@ -15,22 +15,11 @@
 #include "allegro5/allegro_primitives.h"
 
 #include "Player.h"
-
-ALLEGRO_DISPLAY* display{ nullptr };
-ALLEGRO_EVENT_QUEUE* queue{ nullptr };
-ALLEGRO_TIMER* timer { nullptr };
+#include "Screen.h"
 
 ALLEGRO_BITMAP* lucario{ nullptr };
 
 bool redraw{ true };
 bool quit{ false };
-
-// Mouse status variables
-int mouseX{ 0 };
-int mouseY{ 0 };
-int mouseBits{ 0 };
-
-// Keyboard state
-bool keys[ALLEGRO_KEY_MAX] = { false };
 
 void Shutdown_System();
