@@ -1,3 +1,7 @@
+/*
+	LucarIO - Un intento de Agar.IO para molestar a Fernando
+	16/NOV/2019 - Copyright (C) 2019 Rodolfo Lam. All rights reserved.
+*/
 #include "Player.h"
 
 RL::Game::Player::Player(std::string pathToResource)
