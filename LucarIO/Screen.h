@@ -6,11 +6,9 @@
 
 #include <array>
 #include <string>
-#include <iostream>
 
 #include <allegro5/allegro.h>
 
-#include <mathfu/rect.h>
 #include <mathfu/vector.h>
 
 namespace RL::Game {

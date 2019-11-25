@@ -5,11 +5,9 @@
 #pragma once
 
 #include <string>
-#include <stdexcept>
 
 #include <allegro5/allegro.h>
 
-#include <mathfu/constants.h>
 #include <mathfu/rect.h>
 #include <mathfu/vector.h>
 
