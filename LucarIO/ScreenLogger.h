@@ -4,6 +4,7 @@
 */
 #pragma once
 
+#include <chrono>
 #include <string>
 #include <unordered_map>
 
@@ -20,20 +21,27 @@ namespace RL::Game {
 
 	struct LogMessage
 	{
-		LogMessage(std::string msg, mathfu::Vector<float, 2> pos,lifetime = lifetime::transient);
+		LogMessage(std::string msg, mathfu::Vector<float, 2> pos, lifetime tp = lifetime::transient) :
+			data{ msg },
+			position{ pos },
+			type{ tp }
+		{};
 
-		std::string data;
+		std::string data{ "" };
 		mathfu::Vector<float, 2> position;
 
 		void UpdateMessage(std::string msg); // Text changed.
-		void Reposition(mathfu::Vector<float, 2> pos); // Updated when a message is removed.
 		void Tick(); // decrease remaining decay time if transient.
 
 		bool isActive() const; // Query lifetime without generating a tick.
 
 	private:
-		bool active{ false }; // Not decayed.
-		int decay{ 10000 }; // How many milliseconds left to signal death.
+		lifetime type{ lifetime::transient }; /* Only this type can auto signal its own death. */
+											  /* Permanent messages are deleted upstream.      */
+		bool active{ true }; // Not dead yet.
+
+		const std::chrono::seconds timelimit{ 10 }; // How many seconds have to pass to kill message.
+		std::chrono::system_clock::time_point timestamp{ std::chrono::system_clock::now() }; // Time of creation of message
 	};
 
 	class ScreenLogger
@@ -53,6 +61,7 @@ namespace RL::Game {
 		int lineCount{ 0 }; // How many lines of text we currently hold;
 
 		ALLEGRO_FONT* font{ nullptr };
+		ALLEGRO_COLOR color;
 		float fontHeight{ 0.0f };
 	};
 }
