@@ -41,7 +41,7 @@ RL::Game::ScreenLogger::ScreenLogger()
 
 	assert(al_is_system_installed());
 
-	color = al_map_rgb(0, 0, 0);
+	color = al_map_rgb(255, 0, 255);
 	
 	if (font = al_create_builtin_font()) {
 
