@@ -5,6 +5,7 @@
 #pragma once
 
 #include <chrono>
+#include <memory>
 #include <string>
 #include <unordered_map>
 
@@ -28,7 +29,7 @@ namespace RL::Game {
 		{};
 
 		std::string data{ "" };
-		mathfu::Vector<float, 2> position;
+		mathfu::Vector<float, 2> position{ 0.0f,0.0f };
 
 		void UpdateMessage(std::string msg); // Text changed.
 		void Tick(); // decrease remaining decay time if transient.
@@ -53,15 +54,17 @@ namespace RL::Game {
 		void Draw() const; // Draws all messages stored.
 		void Update(); // Produces ticks, then cleans deck by removing death messages.
 
-		void SendNewMessage(std::string name, std::string msg, lifetime = lifetime::transient);
+		void SendNewMessage(std::string name, std::string msg, lifetime tp = lifetime::transient);
 		void RemovePermanentMessage(std::string name);
 
 	private:
-		std::unordered_map<std::string, LogMessage> messageDeck;
+		std::unordered_map<std::string, std::unique_ptr<LogMessage>> messageDeck;
 		int lineCount{ 0 }; // How many lines of text we currently hold;
 
 		ALLEGRO_FONT* font{ nullptr };
 		ALLEGRO_COLOR color;
-		float fontHeight{ 0.0f };
+		int fontHeight{ 0 };
+
+		void CalculateMessagePositions(); // Whenever a message is added/deleted, new positions are needed.
 	};
 }
